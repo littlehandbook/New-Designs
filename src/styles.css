@@ -1,0 +1,77 @@
+/* Custom utility classes */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+/* Smooth height animations using grid technique */
+.grid-expand-closed {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease-out;
+}
+.grid-expand-open {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.3s ease-out;
+}
+.grid-expand-content {
+  overflow: hidden;
+}
+/* For drop shadows on icons */
+.icon-shadow {
+  filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) 
+         drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+}
+/* Border gradient technique */
+.border-gradient {
+  position: relative;
+  border-radius: 0.5rem;
+  padding: 1px;
+  background: linear-gradient(to right, #6366f1, #8b5cf6);
+}
+.border-gradient-inner {
+  background: white;
+  border-radius: 0.375rem;
+  height: 100%;
+}
+/* Focus visible utility for better keyboard navigation */
+.focus-ring {
+  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2;
+}
+/* Responsive text utilities */
+.fluid-text-sm {
+  font-size: clamp(0.75rem, 1vw, 0.875rem);
+}
+.fluid-text-base {
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
+}
+.fluid-text-lg {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+}
+.fluid-text-xl {
+  font-size: clamp(1.125rem, 2.5vw, 1.25rem);
+}
+.fluid-text-2xl {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+}
+.fluid-text-3xl {
+  font-size: clamp(1.5rem, 4vw, 1.875rem);
+}
+.fluid-text-4xl {
+  font-size: clamp(1.875rem, 5vw, 2.25rem);
+}
+/* Responsive padding utilities */
+.fluid-p {
+  padding: min(1.5rem, 5vw);
+}
+.fluid-px {
+  padding-left: min(1.5rem, 5vw);
+  padding-right: min(1.5rem, 5vw);
+}
+.fluid-py {
+  padding-top: min(1.5rem, 5vw);
+  padding-bottom: min(1.5rem, 5vw);
+}
