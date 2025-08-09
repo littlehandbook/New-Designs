@@ -935,7 +935,7 @@ export const TelesessionSettings: React.FC<TelesessionSettingsProps> = ({
         return 'Telesession Settings';
     }
   };
-  return <div className="fixed inset-0 z-50 overflow-hidden">
+  return <div className="fixed inset-0 z-[9999] overflow-hidden">
       {/* Overlay */}
       <div className={`absolute inset-0 bg-gray-800 transition-opacity duration-300 ${isAnimatingOut ? 'opacity-0' : 'opacity-50'}`} onClick={handleClose} />
       {/* Settings Panel */}

@@ -20,10 +20,12 @@ export const ClientMessagingDropdown = () => {
       setIsVisible(true);
       setIsAnimatingOut(false);
       setIsAnimatingIn(true);
-      const timer = setTimeout(() => {
-        setIsAnimatingIn(false);
-      }, 10); // Short timeout to trigger the animation
-      return () => clearTimeout(timer);
+      // Use requestAnimationFrame to ensure the DOM has updated before starting the animation
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setIsAnimatingIn(false);
+        });
+      });
     } else if (!messagingSettingsOpen && isVisible) {
       setIsAnimatingOut(true);
       const timer = setTimeout(() => {
@@ -221,8 +223,8 @@ export const ClientMessagingDropdown = () => {
           </div>
         </div>
       </div>
-      {/* Messaging Settings Panel */}
-      {isVisible && <div className="fixed inset-0 z-50 overflow-hidden">
+      {/* Messaging Settings Panel - Fixed positioning and z-index to ensure it's visible */}
+      {messagingSettingsOpen && <div className="fixed inset-0 z-[9999] overflow-hidden">
           {/* Overlay */}
           <div className={`absolute inset-0 bg-gray-800 transition-opacity duration-300 ${isAnimatingOut ? 'opacity-0' : 'opacity-50'}`} onClick={handleCloseMessagingSettings} />
           {/* Settings Panel */}
