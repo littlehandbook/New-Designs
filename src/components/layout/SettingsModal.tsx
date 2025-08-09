@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { XIcon, UserIcon, CreditCardIcon, BellIcon, PaintBucketIcon, UsersIcon, ShieldIcon, KeyIcon } from 'lucide-react';
 import { UserPermissionsSettings } from '../settings/UserPermissionsSettings';
+import { BrandSettings } from '../settings/BrandSettings';
 interface SettingsModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -268,6 +269,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   </div>
                 </div>}
               {activeSection === 'users' && <UserPermissionsSettings />}
+              {activeSection === 'brand' && <BrandSettings />}
             </div>
           </div>
         </div>
