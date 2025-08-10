@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { XIcon, UserIcon, CreditCardIcon, BellIcon, PaintBucketIcon, UsersIcon, ShieldIcon, KeyIcon } from 'lucide-react';
+import { XIcon, CreditCardIcon, BellIcon, PaintBucketIcon, UsersIcon, VideoIcon, SettingsIcon, BookOpenIcon } from 'lucide-react';
 import { UserPermissionsSettings } from '../settings/UserPermissionsSettings';
 import { BrandSettings } from '../settings/BrandSettings';
+import { TelesessionSettings } from '../settings/TelesessionSettings';
+import { AccountSettings } from '../settings/AccountSettings';
+import { LibrarySettings } from '../settings/LibrarySettings';
 interface SettingsModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -10,7 +13,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   isOpen,
   onClose
 }) => {
-  const [activeSection, setActiveSection] = useState('profile');
+  const [activeSection, setActiveSection] = useState('account');
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isAnimatingIn, setIsAnimatingIn] = useState(false);
@@ -65,10 +68,6 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   </h3>
                 </div>
                 <nav className="mt-1">
-                  <button onClick={() => setActiveSection('profile')} className={`w-full flex items-center px-4 py-2 text-sm font-medium ${activeSection === 'profile' ? 'text-indigo-700 bg-indigo-50' : 'text-gray-700 hover:text-indigo-700 hover:bg-gray-50'}`}>
-                    <UserIcon className={`mr-3 h-5 w-5 ${activeSection === 'profile' ? 'text-indigo-700' : 'text-gray-500'}`} />
-                    Profile
-                  </button>
                   <button onClick={() => setActiveSection('account')} className={`w-full flex items-center px-4 py-2 text-sm font-medium ${activeSection === 'account' ? 'text-indigo-700 bg-indigo-50' : 'text-gray-700 hover:text-indigo-700 hover:bg-gray-50'}`}>
                     <CreditCardIcon className={`mr-3 h-5 w-5 ${activeSection === 'account' ? 'text-indigo-700' : 'text-gray-500'}`} />
                     Account
@@ -81,8 +80,16 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     <UsersIcon className={`mr-3 h-5 w-5 ${activeSection === 'users' ? 'text-indigo-700' : 'text-gray-500'}`} />
                     Users & Permissions
                   </button>
+                  <button onClick={() => setActiveSection('telesessions')} className={`w-full flex items-center px-4 py-2 text-sm font-medium ${activeSection === 'telesessions' ? 'text-indigo-700 bg-indigo-50' : 'text-gray-700 hover:text-indigo-700 hover:bg-gray-50'}`}>
+                    <VideoIcon className={`mr-3 h-5 w-5 ${activeSection === 'telesessions' ? 'text-indigo-700' : 'text-gray-500'}`} />
+                    Telesessions
+                  </button>
+                  <button onClick={() => setActiveSection('library')} className={`w-full flex items-center px-4 py-2 text-sm font-medium ${activeSection === 'library' ? 'text-indigo-700 bg-indigo-50' : 'text-gray-700 hover:text-indigo-700 hover:bg-gray-50'}`}>
+                    <BookOpenIcon className={`mr-3 h-5 w-5 ${activeSection === 'library' ? 'text-indigo-700' : 'text-gray-500'}`} />
+                    Library
+                  </button>
                   <button onClick={() => setActiveSection('configuration')} className={`w-full flex items-center px-4 py-2 text-sm font-medium ${activeSection === 'configuration' ? 'text-indigo-700 bg-indigo-50' : 'text-gray-700 hover:text-indigo-700 hover:bg-gray-50'}`}>
-                    <div className={`mr-3 h-5 w-5 ${activeSection === 'configuration' ? 'text-indigo-700' : 'text-gray-500'}`} />
+                    <SettingsIcon className={`mr-3 h-5 w-5 ${activeSection === 'configuration' ? 'text-indigo-700' : 'text-gray-500'}`} />
                     Configuration
                   </button>
                   <button onClick={() => setActiveSection('brand')} className={`w-full flex items-center px-4 py-2 text-sm font-medium ${activeSection === 'brand' ? 'text-indigo-700 bg-indigo-50' : 'text-gray-700 hover:text-indigo-700 hover:bg-gray-50'}`}>
@@ -100,10 +107,11 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           <div className="flex-1 flex flex-col overflow-hidden bg-gray-50">
             <div className="flex items-center justify-between p-4 bg-white border-b border-gray-200">
               <h2 className="text-xl font-semibold text-gray-900">
-                {activeSection === 'profile' && 'Profile Settings'}
                 {activeSection === 'account' && 'Account Settings'}
                 {activeSection === 'notifications' && 'Notification Settings'}
                 {activeSection === 'users' && 'Users & Permissions'}
+                {activeSection === 'telesessions' && 'Telesession Settings'}
+                {activeSection === 'library' && 'Library Settings'}
                 {activeSection === 'configuration' && 'Configuration'}
                 {activeSection === 'brand' && 'Brand Settings'}
               </h2>
@@ -211,64 +219,10 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     </button>
                   </div>
                 </div>}
-              {activeSection === 'profile' && <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">
-                    Profile Information
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-6">
-                    Update your personal information and profile settings.
-                  </p>
-                  <div className="space-y-4">
-                    <div>
-                      <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
-                        Full Name
-                      </label>
-                      <input type="text" id="fullName" name="fullName" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" defaultValue="Dr. Jane Smith" />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                        Email Address
-                      </label>
-                      <input type="email" id="email" name="email" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" defaultValue="jane.smith@example.com" />
-                    </div>
-                  </div>
-                </div>}
-              {activeSection === 'account' && <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">
-                    Account Security
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-6">
-                    Manage your account security settings.
-                  </p>
-                  <div className="space-y-6">
-                    <div>
-                      <h4 className="text-md font-medium text-gray-900 mb-4">
-                        Change Password
-                      </h4>
-                      <div className="space-y-4">
-                        <div>
-                          <label htmlFor="currentPassword" className="block text-sm font-medium text-gray-700 mb-1">
-                            Current Password
-                          </label>
-                          <input type="password" id="currentPassword" name="currentPassword" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-                        </div>
-                        <div>
-                          <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mb-1">
-                            New Password
-                          </label>
-                          <input type="password" id="newPassword" name="newPassword" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-                        </div>
-                        <div>
-                          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
-                            Confirm New Password
-                          </label>
-                          <input type="password" id="confirmPassword" name="confirmPassword" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>}
+              {activeSection === 'account' && <AccountSettings />}
               {activeSection === 'users' && <UserPermissionsSettings />}
+              {activeSection === 'telesessions' && <TelesessionSettings />}
+              {activeSection === 'library' && <LibrarySettings />}
               {activeSection === 'brand' && <BrandSettings />}
             </div>
           </div>

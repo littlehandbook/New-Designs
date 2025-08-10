@@ -26,9 +26,10 @@ import { ClientDocuments } from './pages/ClientDocuments';
 import { ClientHomework } from './pages/ClientHomework';
 import { ClientsOverview } from './pages/ClientsOverview';
 import { SettingsNotifications } from './pages/SettingsNotifications';
-import { SettingsLibrary } from './pages/SettingsLibrary';
+import { Library } from './pages/Library';
 import { Calendar } from './pages/Calendar';
 import { AdminCalendar } from './pages/AdminCalendar';
+import { Finance } from './pages/Finance';
 // Add global styles for no-scrollbar
 import './styles.css';
 export function App() {
@@ -52,7 +53,7 @@ export function App() {
         <Route path="/set-new-password" element={<SetNewPassword />} />
         <Route path="/practice/dashboard" element={<Dashboard />} />
         <Route path="/practice/client-journal" element={<ClientJournal />} />
-        <Route path="/practice/client-messaging-dropdown" element={<ClientMessagingDropdown />} />
+        <Route path="/practice/client-messaging" element={<ClientMessagingDropdown />} />
         <Route path="/practice/telesession" element={<Telesession />} />
         <Route path="/practice/settings" element={<AccountSettings />} />
         <Route path="/practice/client-detail" element={<ClientDetail />} />
@@ -64,9 +65,10 @@ export function App() {
         <Route path="/practice/client-documents" element={<ClientDocuments />} />
         <Route path="/practice/client-homework" element={<ClientHomework />} />
         <Route path="/practice/settings-notifications" element={<SettingsNotifications />} />
-        <Route path="/practice/settings-library" element={<SettingsLibrary />} />
+        <Route path="/practice/library" element={<Library />} />
         <Route path="/practice/calendar" element={<Calendar />} />
         <Route path="/practice/admin/calendar" element={<AdminCalendar />} />
+        <Route path="/practice/finance" element={<Finance />} />
       </Routes>
     </Router>;
 }

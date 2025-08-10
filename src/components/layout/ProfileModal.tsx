@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { XIcon, UserIcon, ShieldIcon, BellIcon, BriefcaseIcon, CheckIcon, PlusIcon, TrashIcon } from 'lucide-react';
+import { XIcon, UserIcon, ShieldIcon, BellIcon, BriefcaseIcon, CheckIcon, PlusIcon, TrashIcon, KeyIcon, MailIcon } from 'lucide-react';
 interface ProfileModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -12,6 +12,8 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
   const [selectedCategory, setSelectedCategory] = useState('conditions');
   const [newSpecialization, setNewSpecialization] = useState('');
   const [proficiencyLevel, setProficiencyLevel] = useState('experienced');
+  const [resetPasswordEmail, setResetPasswordEmail] = useState('');
+  const [passwordResetSent, setPasswordResetSent] = useState(false);
   if (!isOpen) return null;
   const specializations = {
     conditions: [{
@@ -51,6 +53,17 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
       // In a real app, this would update the state or make an API call
       // For this demo, we'll just clear the input
       setNewSpecialization('');
+    }
+  };
+  const handleResetPassword = () => {
+    // In a real app, this would call an API to send a password reset email
+    if (resetPasswordEmail.trim()) {
+      setPasswordResetSent(true);
+      // Reset the form after 3 seconds
+      setTimeout(() => {
+        setPasswordResetSent(false);
+        setResetPasswordEmail('');
+      }, 3000);
     }
   };
   return <div className="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="profile-modal-title" role="dialog" aria-modal="true">
@@ -391,6 +404,46 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                           Update Password
                         </button>
                       </div>
+                    </div>
+                  </div>
+                  {/* Password Reset Section */}
+                  <div className="mb-8 border-t border-gray-200 pt-8">
+                    <div className="flex items-center">
+                      <KeyIcon className="h-5 w-5 text-indigo-500 mr-2" />
+                      <h3 className="text-lg font-medium leading-6 text-gray-900">
+                        Reset Password
+                      </h3>
+                    </div>
+                    <p className="mt-1 text-sm text-gray-500">
+                      Forgot your password? Enter your email to receive a
+                      password reset link.
+                    </p>
+                    <div className="mt-4">
+                      {passwordResetSent ? <div className="rounded-md bg-green-50 p-4">
+                          <div className="flex">
+                            <div className="flex-shrink-0">
+                              <CheckIcon className="h-5 w-5 text-green-400" aria-hidden="true" />
+                            </div>
+                            <div className="ml-3">
+                              <p className="text-sm font-medium text-green-800">
+                                Password reset link sent! Please check your
+                                email.
+                              </p>
+                            </div>
+                          </div>
+                        </div> : <div className="flex flex-col sm:flex-row sm:items-center">
+                          <div className="relative flex-grow rounded-md shadow-sm">
+                            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                              <MailIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                            </div>
+                            <input type="email" className="block w-full rounded-md border-gray-300 pl-10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Enter your email address" value={resetPasswordEmail} onChange={e => setResetPasswordEmail(e.target.value)} />
+                          </div>
+                          <div className="mt-2 sm:mt-0 sm:ml-3">
+                            <button type="button" className="inline-flex w-full justify-center items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" onClick={handleResetPassword}>
+                              Send Reset Link
+                            </button>
+                          </div>
+                        </div>}
                     </div>
                   </div>
                   {/* Two-Factor Authentication */}
