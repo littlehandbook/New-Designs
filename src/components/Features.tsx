@@ -1,7 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Calendar, Video, FileText, CreditCard, Shield, Users, MessageSquare, Brain, X } from 'lucide-react';
 export const Features = () => {
   const [activeVideo, setActiveVideo] = useState(null);
+  // Animation states for modal
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isAnimatingIn, setIsAnimatingIn] = useState(false);
+  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
+  // Handle animation timing when activeVideo changes
+  useEffect(() => {
+    if (activeVideo && !isModalVisible) {
+      // First make it visible but with opacity 0
+      setIsModalVisible(true);
+      setIsAnimatingIn(true);
+      // Then after a frame, start the animation in
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setIsAnimatingIn(false);
+        });
+      });
+    } else if (!activeVideo && isModalVisible) {
+      // Start animation out
+      setIsAnimatingOut(true);
+      // After animation completes, hide the modal
+      const timer = setTimeout(() => {
+        setIsModalVisible(false);
+        setIsAnimatingOut(false);
+      }, 300); // Match this with the CSS transition duration
+      return () => clearTimeout(timer);
+    }
+  }, [activeVideo, isModalVisible]);
   const features = [{
     icon: <Calendar className="h-6 w-6 text-indigo-600" />,
     title: 'Smart Scheduling',
@@ -47,7 +74,11 @@ export const Features = () => {
     setActiveVideo(videoId);
   };
   const closeVideo = () => {
-    setActiveVideo(null);
+    // Start animation out first, actual state change happens after animation completes
+    setIsAnimatingOut(true);
+    setTimeout(() => {
+      setActiveVideo(null);
+    }, 300);
   };
   return <section id="features" className="py-20 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -76,9 +107,9 @@ export const Features = () => {
             </div>)}
         </div>
       </div>
-      {/* Video Modal Placeholder */}
-      {activeVideo && <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-md border border-gray-200 max-w-4xl w-full max-h-[80vh] overflow-hidden flex flex-col">
+      {/* Video Modal with Animation */}
+      {isModalVisible && <div className={`fixed inset-0 bg-black transition-opacity duration-300 ease-in-out flex items-center justify-center z-50 p-4 ${isAnimatingIn ? 'bg-opacity-0' : isAnimatingOut ? 'bg-opacity-0' : 'bg-opacity-75'}`} onClick={closeVideo}>
+          <div className={`bg-white rounded-lg shadow-md border border-gray-200 max-w-4xl w-full max-h-[80vh] overflow-hidden flex flex-col transition-all duration-300 ease-in-out ${isAnimatingIn ? 'opacity-0 scale-95' : isAnimatingOut ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`} onClick={e => e.stopPropagation()}>
             <div className="p-4 border-b border-gray-200 flex justify-between items-center">
               <h3 className="text-lg font-semibold text-gray-900">
                 {features.find(f => f.videoId === activeVideo)?.title} Demo
