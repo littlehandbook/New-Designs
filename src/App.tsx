@@ -24,6 +24,7 @@ import { ClientSessionsHistory } from './pages/ClientSessionsHistory';
 import { ClientSessionNotes } from './pages/ClientSessionNotes';
 import { ClientDocuments } from './pages/ClientDocuments';
 import { ClientHomework } from './pages/ClientHomework';
+import { ClientGoals } from './pages/ClientGoals';
 import { ClientsOverview } from './pages/ClientsOverview';
 import { SettingsNotifications } from './pages/SettingsNotifications';
 import { Library } from './pages/Library';
@@ -64,6 +65,7 @@ export function App() {
         <Route path="/practice/client-session-notes" element={<ClientSessionNotes />} />
         <Route path="/practice/client-documents" element={<ClientDocuments />} />
         <Route path="/practice/client-homework" element={<ClientHomework />} />
+        <Route path="/practice/clients-goals" element={<ClientGoals />} />
         <Route path="/practice/settings-notifications" element={<SettingsNotifications />} />
         <Route path="/practice/library" element={<Library />} />
         <Route path="/practice/calendar" element={<Calendar />} />

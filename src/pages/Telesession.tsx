@@ -204,28 +204,9 @@ export const Telesession = () => {
                   {/* Quick actions floating button */}
                   {(showControls || !isMaximized) && <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
                       <div className="relative">
-                        <button onClick={() => setShowQuickActions(!showQuickActions)} className="p-3 rounded-full bg-black bg-opacity-50 text-white hover:bg-opacity-70">
+                        <button onClick={() => setTelesessionSettingsOpen(true)} className="p-3 rounded-full bg-black bg-opacity-50 text-white hover:bg-opacity-70">
                           <SlidersIcon className="h-5 w-5" />
                         </button>
-                        {showQuickActions && <div className="absolute right-0 mt-2 bg-black bg-opacity-70 rounded-lg p-2 space-y-2 w-40">
-                            <button onClick={() => setSessionLayout('default')} className={`w-full flex items-center justify-between px-3 py-2 text-sm text-white rounded-md ${sessionLayout === 'default' ? 'bg-indigo-600' : 'hover:bg-gray-700'}`}>
-                              <span>Default view</span>
-                              {sessionLayout === 'default' && <CheckIcon className="h-4 w-4" />}
-                            </button>
-                            <button onClick={() => setSessionLayout('focused')} className={`w-full flex items-center justify-between px-3 py-2 text-sm text-white rounded-md ${sessionLayout === 'focused' ? 'bg-indigo-600' : 'hover:bg-gray-700'}`}>
-                              <span>Focused view</span>
-                              {sessionLayout === 'focused' && <CheckIcon className="h-4 w-4" />}
-                            </button>
-                            <button onClick={() => setSessionLayout('grid')} className={`w-full flex items-center justify-between px-3 py-2 text-sm text-white rounded-md ${sessionLayout === 'grid' ? 'bg-indigo-600' : 'hover:bg-gray-700'}`}>
-                              <span>Grid view</span>
-                              {sessionLayout === 'grid' && <CheckIcon className="h-4 w-4" />}
-                            </button>
-                            <div className="border-t border-gray-600 my-1"></div>
-                            <button onClick={() => setTelesessionSettingsOpen(true)} className="w-full flex items-center px-3 py-2 text-sm text-white rounded-md hover:bg-gray-700">
-                              <SettingsIcon className="h-4 w-4 mr-2" />
-                              <span>Settings</span>
-                            </button>
-                          </div>}
                       </div>
                     </div>}
                   {/* Controls overlay - shown only in maximized mode or when hovering */}
