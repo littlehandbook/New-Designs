@@ -1,44 +1,78 @@
 import React, { useState } from 'react';
 import { CreditCardIcon, ChevronRightIcon, DownloadIcon, MessageCircleIcon, ArrowUpCircleIcon, PlusCircleIcon, AlertTriangleIcon, CheckCircleIcon, InfoIcon, BarChart4Icon, UserPlusIcon, SettingsIcon, BellIcon, DollarSignIcon, UsersIcon, FileTextIcon, PackageIcon, LightbulbIcon, CalendarIcon } from 'lucide-react';
-type AccountTab = 'overview' | 'subscription' | 'usage' | 'billing' | 'invoices' | 'cost' | 'team';
+// Main category type
+type MainCategory = 'account' | 'subscription' | 'team';
+// Subcategory type
+type Subcategory = 'overview' | 'subscription' | 'usage' | 'billing' | 'invoices' | 'cost' | 'team';
 export const AccountSettings: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<AccountTab>('overview');
+  const [activeMainCategory, setActiveMainCategory] = useState<MainCategory>('account');
+  const [activeSubcategory, setActiveSubcategory] = useState<Subcategory>('overview');
+  // Handle main category change
+  const handleMainCategoryChange = (category: MainCategory) => {
+    setActiveMainCategory(category);
+    // Set default subcategory based on main category
+    switch (category) {
+      case 'account':
+        setActiveSubcategory('overview');
+        break;
+      case 'subscription':
+        setActiveSubcategory('subscription');
+        break;
+      case 'team':
+        setActiveSubcategory('team');
+        break;
+    }
+  };
+  // Handle subcategory change
+  const handleSubcategoryChange = (subcategory: Subcategory) => {
+    setActiveSubcategory(subcategory);
+  };
   return <div className="space-y-6">
-      {/* Tabs */}
+      {/* Main Categories */}
       <div className="border-b border-gray-200">
-        <nav className="-mb-px flex space-x-6 overflow-x-auto">
-          <button onClick={() => setActiveTab('overview')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'overview' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}>
+        <nav className="-mb-px flex space-x-8">
+          <button onClick={() => handleMainCategoryChange('account')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeMainCategory === 'account' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}>
             Account Overview
           </button>
-          <button onClick={() => setActiveTab('subscription')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'subscription' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}>
-            Subscription & Features
+          <button onClick={() => handleMainCategoryChange('subscription')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeMainCategory === 'subscription' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}>
+            Subscription, Features, Usage & Billing
           </button>
-          <button onClick={() => setActiveTab('usage')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'usage' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}>
-            Usage & Credits
-          </button>
-          <button onClick={() => setActiveTab('billing')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'billing' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}>
-            Billing Information
-          </button>
-          <button onClick={() => setActiveTab('invoices')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'invoices' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}>
-            Invoices & History
-          </button>
-          <button onClick={() => setActiveTab('cost')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'cost' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}>
-            Cost Management
-          </button>
-          <button onClick={() => setActiveTab('team')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'team' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}>
+          <button onClick={() => handleMainCategoryChange('team')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeMainCategory === 'team' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}>
             Team & Seats
           </button>
         </nav>
       </div>
+      {/* Subcategories - only show if not on Account Overview */}
+      {activeMainCategory !== 'account' && <div className="bg-gray-100 rounded-md p-2">
+          <nav className="flex flex-wrap gap-2">
+            {activeMainCategory === 'subscription' && <>
+                <button onClick={() => handleSubcategoryChange('subscription')} className={`px-3 py-1.5 rounded-md text-sm font-medium ${activeSubcategory === 'subscription' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-600 hover:bg-gray-200'}`}>
+                  Subscription & Features
+                </button>
+                <button onClick={() => handleSubcategoryChange('usage')} className={`px-3 py-1.5 rounded-md text-sm font-medium ${activeSubcategory === 'usage' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-600 hover:bg-gray-200'}`}>
+                  Usage & Credits
+                </button>
+                <button onClick={() => handleSubcategoryChange('billing')} className={`px-3 py-1.5 rounded-md text-sm font-medium ${activeSubcategory === 'billing' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-600 hover:bg-gray-200'}`}>
+                  Billing Information
+                </button>
+                <button onClick={() => handleSubcategoryChange('invoices')} className={`px-3 py-1.5 rounded-md text-sm font-medium ${activeSubcategory === 'invoices' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-600 hover:bg-gray-200'}`}>
+                  Invoices & History
+                </button>
+                <button onClick={() => handleSubcategoryChange('cost')} className={`px-3 py-1.5 rounded-md text-sm font-medium ${activeSubcategory === 'cost' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-600 hover:bg-gray-200'}`}>
+                  Cost Management
+                </button>
+              </>}
+          </nav>
+        </div>}
       {/* Tab Content */}
       <div className="mt-6">
-        {activeTab === 'overview' && <AccountOverview />}
-        {activeTab === 'subscription' && <SubscriptionFeatures />}
-        {activeTab === 'usage' && <UsageCredits />}
-        {activeTab === 'billing' && <BillingInformation />}
-        {activeTab === 'invoices' && <InvoicesHistory />}
-        {activeTab === 'cost' && <CostManagement />}
-        {activeTab === 'team' && <TeamSeats />}
+        {activeSubcategory === 'overview' && <AccountOverview />}
+        {activeSubcategory === 'subscription' && <SubscriptionFeatures />}
+        {activeSubcategory === 'usage' && <UsageCredits />}
+        {activeSubcategory === 'billing' && <BillingInformation />}
+        {activeSubcategory === 'invoices' && <InvoicesHistory />}
+        {activeSubcategory === 'cost' && <CostManagement />}
+        {activeSubcategory === 'team' && <TeamSeats />}
       </div>
     </div>;
 };
