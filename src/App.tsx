@@ -31,6 +31,23 @@ import { Library } from './pages/Library';
 import { Calendar } from './pages/Calendar';
 import { AdminCalendar } from './pages/AdminCalendar';
 import { Finance } from './pages/Finance';
+// Import redesigned pages
+import { Dashboard as NDashboard } from './pages/n.Dashboard';
+import { ClientGoals as NClientGoals } from './pages/n.ClientGoals';
+import { Calendar as NCalendar } from './pages/n.Calendar';
+import { ClientDetail as NClientDetail } from './pages/n.ClientDetail';
+import { ClientsOverview as NClientsOverview } from './pages/n.ClientsOverview';
+import { ClientSessions as NClientSessions } from './pages/n.ClientSessions';
+import { ClientSessionNotes as NClientSessionNotes } from './pages/n.ClientSessionNotes';
+import { ClientDocuments as NClientDocuments } from './pages/n.ClientDocuments';
+import { ClientHomework as NClientHomework } from './pages/n.ClientHomework';
+import { ClientJournal as NClientJournal } from './pages/n.ClientJournal';
+import { ClientMessaging as NClientMessaging } from './pages/n.ClientMessaging';
+import { Telesession as NTelesession } from './pages/n.Telesession';
+import { Finance as NFinance } from './pages/n.Finance';
+import { AccountSettings as NAccountSettings } from './pages/n.AccountSettings';
+// Import Design System page
+import { DesignSystem } from './pages/DesignSystem';
 // Add global styles for no-scrollbar
 import './styles.css';
 export function App() {
@@ -52,6 +69,7 @@ export function App() {
         <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/set-new-password" element={<SetNewPassword />} />
+        {/* Original pages */}
         <Route path="/practice/dashboard" element={<Dashboard />} />
         <Route path="/practice/client-journal" element={<ClientJournal />} />
         <Route path="/practice/client-messaging" element={<ClientMessagingDropdown />} />
@@ -71,6 +89,23 @@ export function App() {
         <Route path="/practice/calendar" element={<Calendar />} />
         <Route path="/practice/admin/calendar" element={<AdminCalendar />} />
         <Route path="/practice/finance" element={<Finance />} />
+        {/* Redesigned pages */}
+        <Route path="/practice/n/dashboard" element={<NDashboard />} />
+        <Route path="/practice/n/clients-goals" element={<NClientGoals />} />
+        <Route path="/practice/n/calendar" element={<NCalendar />} />
+        <Route path="/practice/n/client-detail" element={<NClientDetail />} />
+        <Route path="/practice/n/clients" element={<NClientsOverview />} />
+        <Route path="/practice/n/client-sessions" element={<NClientSessions />} />
+        <Route path="/practice/n/client-session-notes" element={<NClientSessionNotes />} />
+        <Route path="/practice/n/client-documents" element={<NClientDocuments />} />
+        <Route path="/practice/n/client-homework" element={<NClientHomework />} />
+        <Route path="/practice/n/client-journal" element={<NClientJournal />} />
+        <Route path="/practice/n/client-messaging" element={<NClientMessaging />} />
+        <Route path="/practice/n/telesession" element={<NTelesession />} />
+        <Route path="/practice/n/finance" element={<NFinance />} />
+        <Route path="/practice/n/settings" element={<NAccountSettings />} />
+        {/* Design System */}
+        <Route path="/design-system" element={<DesignSystem />} />
       </Routes>
     </Router>;
 }
